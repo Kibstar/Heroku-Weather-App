@@ -1,1 +1,1 @@
-web: gunicorn django_weatherapp.django_weatherapp.wsgi
+web: gunicorn django_weatherapp.wsgi
