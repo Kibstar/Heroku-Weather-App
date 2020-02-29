@@ -43,7 +43,7 @@ class General:
 
         except:
             self.fail = True
-            print('Could not access data. Using the last gathered data')
+            print(self.fail)
             # with open('weather_data.json', 'r') as f:
             #     self.weather_data = json.load(f)
 

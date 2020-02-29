@@ -49,19 +49,21 @@ def home(request): ##todo add in more data variables to the dictionary hourly_we
     if request.method == 'POST' and 'city' in request.POST:
         city_form = SearchCityForm(request.POST)
         if city_form.is_valid():
-            city = request.POST.get('city')
-            if city == '':
-                city = City.objects.last().city
+            city = request.POST.get('city') # name of typed in city could be wrong at this point
             c = City(city=city)
             d = City.objects.last()
-            d.delete()
-            c.save()
-            initial_data = main.General(city)
-            if initial_data.fail == True:
+            try:
+                initial_data = main.General(city)
+                d.delete()
+                c.save()
+                return response.HttpResponseRedirect('/')
+            except:
+                initial_data = main.General(d.city)
                 messages.warning(request, f'The city you searched for could not be found. Please check your spelling')
                 return response.HttpResponseRedirect('/')
 
-            return response.HttpResponseRedirect('/')
+
+
         else:
             last_search = City.objects.last().city
             initial_data = main.General(last_search)
