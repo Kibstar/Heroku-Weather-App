@@ -10,6 +10,11 @@ class SearchCityForm(forms.Form):
 
 class ChangePreferenceForm(forms.Form):
 
-    max_wind = forms.IntegerField(widget=forms.NumberInput(attrs={'placeholder': Pref.objects.last().max_wind}))
-    min_temp = forms.IntegerField(widget=forms.NumberInput(attrs={'placeholder': Pref.objects.last().min_temp}))
+    # attrs = {'placeholder': Pref.objects.last().max_wind}))
+    # attrs = {'placeholder': Pref.objects.last().min_temp}))
+
+
+
+    max_wind = forms.IntegerField(widget=forms.NumberInput())
+    min_temp = forms.IntegerField(widget=forms.NumberInput())
 
