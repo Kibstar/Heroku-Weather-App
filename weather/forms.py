@@ -10,8 +10,8 @@ class SearchCityForm(forms.Form):
 
 class ChangePreferenceForm(forms.Form):
 
-    # attrs = {'placeholder': Pref.objects.last().max_wind}))
-    # attrs = {'placeholder': Pref.objects.last().min_temp}))
+    attrs = {'placeholder': Pref.objects.last().max_wind}))
+    attrs = {'placeholder': Pref.objects.last().min_temp}))
 
 
 
