@@ -1,0 +1,88 @@
+{% extends 'weather/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<title>Weather Home page</title>
+<div  class="container">
+<div class="pricing-header px-6 mx-auto text-center">
+  <h1 class="display-3"><b>{{general_data.city}}</b></h1>
+  <h3 class="display-6">{{general_data.country}}</h3>
+</div>
+
+<div  class="container lg-2 px-0">
+  <div class="row">
+    <div class="col lg-2 px-0 py-3">
+        <form class="form-inline" method="POST" action="#" >
+            {% csrf_token %}
+          <div class="form-group mb-2">
+            <label for="max_wind" class=""><h6>Maximum wind speed: </h6></label>
+            <input name="max_wind" type="number"  class="form-control mx-3" id="max_wind" value="{{ general_data.max_wind }}">
+          </div>
+          <div class="form-group mb-2">
+            <label for="min_temp" class="primary"><h6>Minimum temperature: </h6> </label>
+            <input name="min_temp" type="number" class="form-control mx-3" id="min_temp" value ="{{ general_data.min_temp }}">
+          </div>
+          <button type="submit" class="btn btn-info mb-2">Update</button>
+        </form>
+
+    </div>
+    <div class="col lg-2 px-0 py-3">
+      <h6 align="right" class=""><b>Sunrise: </b>{{ general_data.sunrise }}</h6>
+      <h6 align="right" class=""><b>Sunset: </b>{{ general_data.sunset }}</h6>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+
+<div  class="table-responsive table">
+  <table class="table">
+  <tbody>
+    {% for x in day_list %}
+
+      <thead  >
+        <tr>
+          <th class= "h-25"scope="col">{{ x.date }}</th>
+          <th col-6 .col-sm-3 scope="col">Temperature</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col">Wind Speed</th>
+          <th scope="col">Wind Direction</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+
+      {% for i in weather_data %}
+          {% if x.date == i.date %}
+              {% if i.good_to_fly %}
+                <tr  bgcolor="#e8ffde"><!-- GREEN -->
+              {% endif %}
+              {% if i.good_to_fly == False %}
+                  <tr  bgcolor="#ffdede"> <!-- RED -->
+              {% endif %}
+              {% if i.dark == True %}
+                <tr bgcolor="#ebebeb"><!-- GREY -->
+              {% endif %}
+
+              <th class="dl d" scope="row">{{ i.time }}</th>
+              <td>  {{ i.temperature }} °C</td>
+              <td><img class="img-fluid" src="http://openweathermap.org/img/w/{{i.icon}}.png" width="35" height="35" alt=""></td>
+              <td>{{ i.description }}</td>
+              <td>{{ i.wind_speed }} mph</td>
+              <td>{{ i.wind_direction }}</td>
+              <td>{{ i.why }}</td>
+              <td></td>
+            </tr>
+          {% endif %}
+           {% if i.time == '21:00' %}
+                <tr>
+                </tr>
+           {% endif %}
+      {% endfor i %}
+    {% endfor x %}
+
+  </tbody>
+  </table>
+</div>
+{% endblock content %}

@@ -1,0 +1,65 @@
+<!doctype html>
+{% load crispy_forms_tags %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    {% if title %}
+      <title>Flying Weather App - {{ title }}</title>
+    {% else %}
+      <title>Flying Weather App</title>
+    {% endif %}
+  </head>
+  <body>
+  <div>
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-1 shadow">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0 " href="/">WeatherApp</a>
+
+      <form method="POST" action="#">
+      {% csrf_token %}
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <input name= "city" class="btn btn-outline-light"  placeholder="Search" value="{{ request.POST.city }}"></input>
+          <button class="btn btn-info" type="submit">Search</button>
+        </li>
+      </ul>
+      </form>
+    </nav>
+  </div>
+    <div class="container-fluid m-2 p-4 { padding-top: 40px; }">
+      <div class="row">
+        <nav class="col-md-2 d-2 p-4 d-md-block bg-light sidebar">
+
+        </nav>
+
+        <main role="main" class="col-md-9  px-4">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center  pt-4 pb-2 mb-3 border-bottom">
+            <h1 class="h2">{{ title }}</h1>
+          </div>
+            {% if messages %}
+              {% for i in messages %}
+              <div class="alert alert-{{ i.tags }}" >
+                {{ i }}
+              </div>
+              {% endfor %}
+            {% endif %}
+          {% block content %}{% endblock %}
+          <!-- Content under here -->
+
+        </main>
+      </div>
+    </div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>
