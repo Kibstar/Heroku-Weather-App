@@ -4,7 +4,6 @@ from .forms import SearchCityForm, ChangePreferenceForm
 from .models import City, Pref
 from django.http import response
 from django.contrib import messages
-import string
 
 
 
